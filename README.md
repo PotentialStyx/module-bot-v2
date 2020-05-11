@@ -46,3 +46,26 @@ pythoniaBot.premade.newBot({{token}},{{los}})
 the token is the token you got from discord and los is a list of the Server/premiumServer objects
 
 note: this will also start a flask server this will be toggleable later
+
+### simple bot
+this is a simple bot made by combinding all of that:
+```python
+import pythoniaBot.classes as classes
+import pythoniaBot.premade as premade
+
+async def _help(message,arg,server):
+  temp= []
+  for i in server.commands:
+    temp.append(' - ' + i.trigger)
+  temp2 = ''
+  for i in temp:
+    temp2 += i+ '\n'
+  await message.send('Commands: \n'+temp2)
+
+_help = Command('help',_help,'func',False)
+
+server = premiumServer({{SERVER ID}},'**',[_help])
+
+premade.newBot({{TOKEN}},[server])
+```
+that will create a bot with one command: \*\*help
