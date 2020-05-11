@@ -1,0 +1,2 @@
+class incorrectTypeRecieved(Exception):
+  pass
