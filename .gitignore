@@ -1,3 +1,7 @@
+# compile
+compile.bat
+compile.py
+
 # secrets shhh
 .env
 *.env
