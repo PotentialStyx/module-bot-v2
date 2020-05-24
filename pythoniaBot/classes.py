@@ -40,7 +40,7 @@ class Server:
         if isinstance(i,Permission):
           self.perms = permissions
         else:
-          if(not isinstance(permission,None)):
+          if(not isinstance(permissions,None)):
             raise errors.incorrectTypeRecieved('recived ' + type(i).__name__ + ' in list of permissions, expected Permission object')
     elif isinstance(permissions,Permission):
       self.perms = []
