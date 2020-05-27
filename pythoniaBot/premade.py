@@ -3,6 +3,7 @@ import traceback
 from pythoniaBot.errors import *
 from pythoniaBot.classes import *
 from pythoniaBot.keep_alive import *
+import pythoniaBot
 client = discord.Client()
 
 class Bot:
@@ -24,6 +25,11 @@ async def on_message(message):
       if i.serverID == message.guild.id:
         yes = True
         server = i
+    if(not yes):
+      for i in bot.servers:
+        if(i.serverID == '*'):
+          yes = True
+          server = Server('*'i.prefix,i.commands)
     if(yes):
       if(message.content[:len(server.prefix)]==server.prefix):
         commandTemp = message.content[len(server.prefix):]
@@ -37,9 +43,8 @@ async def on_message(message):
               await message.channel.send('Error: \n```\n{}```'.format(traceback.format_exc()))
     else:
       return(None)
-
 bot = Bot(0,[])
-def newBot(token,servers):
+def newBot(token,servers,flask = True,app = pythoniaBot.keep_alive.app):
   if not isinstance(servers,list):
     raise incorrectTypeRecieved('Recived: '+type(servers).__name__ + ' expected a list of Server objects')
   for i in servers:
@@ -47,5 +52,6 @@ def newBot(token,servers):
       raise incorrectTypeRecieved('Recived a list with: '+type(servers).__name__ + ' expected a list of Server objects')
   bot.token = token
   bot.servers = servers
-  keep_alive()
+  if(flask):
+    keep_alive(app == pythoniaBot.keep_alive.app, app)
   client.run(bot.token)
