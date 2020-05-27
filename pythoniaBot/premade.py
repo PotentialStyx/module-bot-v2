@@ -29,7 +29,7 @@ async def on_message(message):
       for i in bot.servers:
         if(i.serverID == '*'):
           yes = True
-          server = Server('*'i.prefix,i.commands)
+          server = Server('*',i.prefix,i.commands)
     if(yes):
       if(message.content[:len(server.prefix)]==server.prefix):
         commandTemp = message.content[len(server.prefix):]
